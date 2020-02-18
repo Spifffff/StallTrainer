@@ -10,7 +10,7 @@ namespace StallTrainer
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new TrainerPage();
         }
 
         protected override void OnStart()

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StallTrainer.TrainerPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android">20, 0, 20, 0</On>
+        </OnPlatform>
+    </ContentPage.Padding>
+    <StackLayout Orientation="Vertical">
+        <Label Text="Stall trainer"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Start"/>
+        <Label Text="Settings"/>
+        <StackLayout Orientation="Vertical">
+            <Label x:Name="handLabel"
+                   Text="Hands: single"/>
+            <Slider x:Name="handSlider"
+                    Maximum="2"
+                    Minimum="0"
+                    Value="0"
+                    HorizontalOptions="FillAndExpand"
+                    ValueChanged="HandSlider_ValueChanged"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
