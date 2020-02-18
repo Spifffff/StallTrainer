@@ -8,21 +8,21 @@ using Xamarin.Forms;
 
 namespace StallTrainer
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     public partial class TrainerPage : ContentPage
     {
+        private bool IsRunning;
         public TrainerPage()
         {
             InitializeComponent();
+            IsRunning = false;
         }
 
         private void HandSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            //limit slider to three values
+            //limit slider to whole numbers
             Slider slider = (Slider)sender;
-            slider.Value = Math.Round(e.NewValue);
+            StepifySlider(slider);
 
             //display selected setting
             string hands = CompareDoubles(slider.Value, 0) ? "single" :
@@ -31,6 +31,36 @@ namespace StallTrainer
             handLabel.Text = $"Hands: {hands}";
         }
 
+        private void IntervalSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            //limit slider to whole numbers
+            Slider slider = (Slider)sender;
+            StepifySlider(slider);
+        }
+
         private bool CompareDoubles(double valueOne, double valueTwo) => Math.Abs(valueOne - valueTwo) <= 0.1;
+
+        private void StepifySlider(Slider slider, int precision = 0)
+        {
+            slider.Value = Math.Round(slider.Value, precision);
+        }
+
+        private void startStopButton_Clicked(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            IsRunning = !IsRunning;
+            if (IsRunning)
+            {
+                startStopButton.Text = "Stop";
+                button.BorderColor = Color.Red;
+                //TODO: handle start timer
+            }
+            else
+            {
+                startStopButton.Text = "Start";
+                button.BorderColor = Color.LightGreen;
+                //TODO: handle stop timer
+            }
+        }
     }
 }

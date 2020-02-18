@@ -7,23 +7,79 @@
              x:Class="StallTrainer.TrainerPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
-            <On Platform="Android">20, 0, 20, 0</On>
+            <On Platform="Android">0</On>
         </OnPlatform>
     </ContentPage.Padding>
-    <StackLayout Orientation="Vertical">
-        <Label Text="Stall trainer"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="Start"/>
+    <StackLayout Orientation="Vertical"
+                 Padding="20, 0, 20, 0">
         <Label Text="Settings"/>
-        <StackLayout Orientation="Vertical">
-            <Label x:Name="handLabel"
+        <Frame CornerRadius="10"
+               BorderColor="Gray">
+            <StackLayout>
+                <Label x:Name="handLabel"
                    Text="Hands: single"/>
-            <Slider x:Name="handSlider"
+                <Slider x:Name="handSlider"
                     Maximum="2"
                     Minimum="0"
                     Value="0"
                     HorizontalOptions="FillAndExpand"
                     ValueChanged="HandSlider_ValueChanged"/>
-        </StackLayout>
+            </StackLayout>
+        </Frame>
+        <Frame CornerRadius="10"
+               BorderColor="Gray">
+            <StackLayout Orientation="Vertical">
+                <Label Text="Stalls used"/>
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical"
+                                 HorizontalOptions="Center">
+                        <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="End">
+                            <Label Text="Up stall"/>
+                            <Switch x:Name="upSwitch"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="End">
+                            <Label Text="Down stall"/>
+                            <Switch x:Name="downSwitch"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical"
+                                 HorizontalOptions="Center">
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="End">
+                            <Label Text="Top stall"/>
+                            <Switch x:Name="topSwitch"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="End">
+                            <Label Text="Bottom stall"/>
+                            <Switch x:Name="bottomSwitch"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+        <Frame CornerRadius="10"
+               BorderColor="Gray">
+            <StackLayout>
+                <Label x:Name="intervalLabel" 
+                       Text="{Binding Source={x:Reference intervalSlider},
+                    Path=Value,
+                    StringFormat='Interval: {0:F0} seconds'}"/>
+                <Slider x:Name="intervalSlider"
+                    Maximum="20"
+                    Minimum="1"
+                    Value="1"
+                    HorizontalOptions="FillAndExpand"
+                    ValueChanged="IntervalSlider_ValueChanged"/>
+            </StackLayout>
+        </Frame>
+        <Button x:Name="startStopButton"
+                Text="Start"
+                CornerRadius="10"
+                Clicked="startStopButton_Clicked"
+                BorderColor="LightGreen"
+                BorderWidth="2"/>
     </StackLayout>
 </ContentPage>
