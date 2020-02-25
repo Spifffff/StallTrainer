@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Plugin.SimpleAudioPlayer;
 
 namespace StallTrainer
 {
@@ -12,10 +13,25 @@ namespace StallTrainer
     public partial class TrainerPage : ContentPage
     {
         private bool IsRunning;
+        private List<ISimpleAudioPlayer> audio;
+
         public TrainerPage()
         {
             InitializeComponent();
             IsRunning = false;
+
+            audio = new List<ISimpleAudioPlayer>();
+            for (int i = 0; i < + 6; i++)
+            {
+                audio.Add(CrossSimpleAudioPlayer.CreateSimpleAudioPlayer());
+            }
+
+            audio[0].Load("up.mp3");
+            audio[1].Load("down.mp3");
+            audio[2].Load("top.mp3");
+            audio[3].Load("bottom.mp3");
+            audio[4].Load("left.mp3");
+            audio[5].Load("right.mp3");
         }
 
         private void HandSlider_ValueChanged(object sender, ValueChangedEventArgs e)
@@ -45,7 +61,7 @@ namespace StallTrainer
             slider.Value = Math.Round(slider.Value, precision);
         }
 
-        private void startStopButton_Clicked(object sender, EventArgs e)
+        private void StartStopButton_Clicked(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             IsRunning = !IsRunning;
@@ -53,14 +69,23 @@ namespace StallTrainer
             {
                 startStopButton.Text = "Stop";
                 button.BorderColor = Color.Red;
-                //TODO: handle start timer
+                Device.StartTimer(TimeSpan.FromSeconds(intervalSlider.Value), () =>
+                {
+                    PlaySound();
+                    return IsRunning;
+                });
             }
             else
             {
                 startStopButton.Text = "Start";
                 button.BorderColor = Color.LightGreen;
-                //TODO: handle stop timer
             }
+        }
+
+        private void PlaySound()
+        {
+            audio[0].Play();
+            
         }
     }
 }

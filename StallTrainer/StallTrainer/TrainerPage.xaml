@@ -78,7 +78,7 @@
         <Button x:Name="startStopButton"
                 Text="Start"
                 CornerRadius="10"
-                Clicked="startStopButton_Clicked"
+                Clicked="StartStopButton_Clicked"
                 BorderColor="LightGreen"
                 BorderWidth="2"/>
     </StackLayout>
